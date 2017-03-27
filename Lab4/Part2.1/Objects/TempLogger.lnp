@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\TempLogger.obj" 
+TO ".\Objects\TempLogger" 
+
+PRINT(".\Listings\TempLogger.map")

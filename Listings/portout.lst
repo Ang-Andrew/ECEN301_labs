@@ -1,0 +1,71 @@
+C51 COMPILER V9.53.0.0   PORTOUT                                                           05/29/2015 13:25:43 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE PORTOUT
+OBJECT MODULE PLACED IN .\Objects\portout.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE portout.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listin
+                    -gs\portout.lst) TABS(2) OBJECT(.\Objects\portout.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF portout.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A simple program to set port values and output them                  */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          
+  12          
+  13          /***  Set all bits of port 1  **********************************************/
+  14          
+  15          void WriteToPort()
+  16          {
+  17   1        P2_0 = TRUE;
+  18   1        P2_1 = FALSE;
+  19   1        P2_2 = TRUE;
+  20   1        P2_3 = FALSE;
+  21   1        P2_4 = TRUE;
+  22   1        P2_5 = FALSE;
+  23   1        P2_6 = TRUE;
+  24   1        P2_7 = FALSE; 
+  25   1      }
+  26          
+  27          
+  28          /**  Main Function  ********************************************************/
+  29          
+  30          void main()
+  31          {
+  32   1        P2 = 0;
+  33   1        while (TRUE)
+  34   1        { 
+  35   2          //WriteToPort();
+  36   2          P2 = 0x01;
+  37   2        } 
+  38   1      }
+  39          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     25    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+C51 COMPILER V9.53.0.0   PORTOUT                                                           05/29/2015 13:25:43 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

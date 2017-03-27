@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\part7.obj" 
+TO ".\Objects\part7" 
+
+PRINT(".\Listings\part7.map")

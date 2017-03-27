@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\motorCon.obj" 
+TO ".\Objects\motorCon" 
+PRINT(".\Listings\motorCon.m51") RAMSIZE(256) 

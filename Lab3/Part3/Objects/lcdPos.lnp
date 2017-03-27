@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\lcdPos.obj",
+".\phys340libkeil.obj" 
+TO ".\Objects\lcdPos" 
+PRINT(".\Listings\lcdPos.m51") RAMSIZE(256) 

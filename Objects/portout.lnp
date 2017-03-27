@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\portout.obj" 
+TO ".\Objects\portout" 
+
+PRINT(".\Listings\portout.map")

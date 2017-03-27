@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\PWMoutput.obj",
+".\phys340libkeil.obj" 
+TO ".\Objects\Part1" 
+
+PRINT(".\Listings\Part1.map")

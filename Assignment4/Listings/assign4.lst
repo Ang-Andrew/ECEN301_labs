@@ -1,0 +1,181 @@
+C51 COMPILER V9.53.0.0   ASSIGN4                                                           06/10/2015 19:49:22 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE ASSIGN4
+OBJECT MODULE PLACED IN .\Objects\assign4.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE assign4.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listin
+                    -gs\assign4.lst) TABS(2) OBJECT(.\Objects\assign4.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF assign4.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include <t89c51ac3.h>
+   2          #include <string.h>
+   3          #include <phys340libkeil.h>
+   4          #include <stdio.h>
+   5          
+   6          char outputText [33];
+   7          int rpm;
+   8          int difference=0;
+   9          unsigned int hi,lo,prev,curr,period;
+  10          unsigned int overflow; //Flag counter
+  11          int rpm; //average RPM
+  12          //int prevRPM = 0; //previous RPM
+  13          int currRPM = 0; //current RPM
+  14          int samples[5]; //for averaging, storage for RPM
+  15          int index = 0; //for averaging
+  16          int printCounter = 5; 
+  17          int summer = 0;
+  18          int fullFlag = 0;
+  19          int i = 0;
+  20          int x = 0;
+  21          int wantRPM = 0;
+  22          int averageFinder = 0;
+  23          int averageFlag = 1;
+  24          char averageArray[10];
+  25          int err = 0;
+  26          unsigned int test = 0; 
+  27          float kp = 1.5; //proportional constant
+  28          float ki = 0; //integral constant
+  29          float kd = 0; //derivative constant
+  30          float prop = 0; //proportional control
+  31          float intCtrl = 0; //integral control
+  32          float derCtrl = 0; //derivative control
+  33          float correctionTot = 0;
+  34          int errSum = 0; //sum of past errors
+  35          int oldErr = 0; //rate of change of error
+  36          int errDif = 0;//present error
+  37          
+  38          
+  39          void MyIntHandler(void) interrupt 6
+  40          {
+  41   1        EA=0;
+  42   1        EC=0;
+  43   1        if(CF ==1)
+  44   1            {
+  45   2              overflow++;
+  46   2              CF=0; 
+  47   2            } 
+  48   1        if(CCF1 == 1)
+  49   1          { 
+  50   2            hi = (unsigned int)(CCAP1H<<8);
+  51   2            lo =  (unsigned int)(CCAP1L);
+  52   2            prev = curr;  
+  53   2            curr = hi + lo +  ((unsigned int)(65536*overflow)); 
+C51 COMPILER V9.53.0.0   ASSIGN4                                                           06/10/2015 19:49:22 PAGE 2   
+
+  54   2            difference = curr-prev;
+  55   2          }
+  56   1        CCF1 = 0;
+  57   1        EA=1;
+  58   1        EC=1;
+  59   1        overflow=0;
+  60   1      }
+  61          
+  62          
+  63          void averaging()
+  64          {
+  65   1        summer = 0;
+  66   1        //getting the total within the array
+  67   1        for(i = 0; i < 5; ++i) 
+  68   1            {
+  69   2              summer = summer + samples[i];
+  70   2            }
+  71   1        //finding the average
+  72   1        x = summer/5;
+  73   1        rpm = x;
+  74   1      }
+  75          
+  76          void init()
+  77          {
+  78   1        //PCA module 0 as PWM output to motor
+  79   1        CCAPM0 = 0x42;
+  80   1        CMOD = 0x01;
+  81   1        
+  82   1        //PCA module 1 as capture for optoswitch
+  83   1        EA=1;
+  84   1        EC=1;
+  85   1        CCAPM1 = 0x11; //Capture mode and enable CCFx interrupt bit
+  86   1        CCON = 0x40; //PCA Counter On
+  87   1        CF=0;
+  88   1      }
+  89          
+  90          void main()
+  91          {
+  92   1        init(); 
+  93   1        initLCD();
+  94   1        initSerial(1200);
+  95   1          while(1)
+  96   1            {
+  97   2              
+  98   2              test = P2;
+  99   2              
+ 100   2              //PID control
+ 101   2              prop = 0.2*err;
+ 102   2              intCtrl = 0.1*errSum;
+ 103   2              derCtrl = 0.25*errDif;
+ 104   2              correctionTot = prop+intCtrl+derCtrl;
+ 105   2              
+ 106   2              //PWM out
+ 107   2              CCAP0H = (393.05-correctionTot)/1.5924;
+ 108   2              clearLCD();
+ 109   2              
+ 110   2              currRPM = 300000/difference;
+ 111   2              samples[index] = currRPM;
+ 112   2              index++;
+ 113   2              if (index == 6) //array of samples is full
+ 114   2              {
+ 115   3                index = 0;
+C51 COMPILER V9.53.0.0   ASSIGN4                                                           06/10/2015 19:49:22 PAGE 3   
+
+ 116   3                fullFlag = 1;
+ 117   3              }
+ 118   2              if (fullFlag)
+ 119   2              {
+ 120   3                averaging();
+ 121   3                //prints out current RPM
+ 122   3                sprintf(outputText, "%i",rpm);
+ 123   3                writeLineLCD(outputText);
+ 124   3                writeLineSerial(outputText);
+ 125   3                
+ 126   3                //prints out wanted RPM
+ 127   3                setLCDPos(16);
+ 128   3                wantRPM = (-1.5924*P2)+393.05;
+ 129   3                sprintf(outputText, "wRPM:%i",wantRPM);
+ 130   3                writeLineLCD(outputText);
+ 131   3                
+ 132   3                //prints out error
+ 133   3                oldErr = err;
+ 134   3                err = wantRPM - rpm;
+ 135   3                errDif = oldErr - err;
+ 136   3                errSum = errSum+err;
+ 137   3                setLCDPos(25);
+ 138   3                sprintf(outputText, "e:%i",err);
+ 139   3                writeLineLCD(outputText);
+ 140   3                
+ 141   3                fullFlag = 0;
+ 142   3                //delaya(1000);
+ 143   3                
+ 144   3              }
+ 145   2              
+ 146   2            }
+ 147   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    949    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =    127    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

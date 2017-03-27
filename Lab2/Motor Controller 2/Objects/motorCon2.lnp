@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\MotorCon2.obj" 
+TO ".\Objects\motorCon2" 
+
+PRINT(".\Listings\motorCon2.map")

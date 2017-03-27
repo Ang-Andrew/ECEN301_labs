@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\sampleADCImp.obj",
+".\phys340libkeil.obj" 
+TO ".\Objects\sampleADCmine" 
+
+PRINT(".\Listings\sampleADCmine.map")

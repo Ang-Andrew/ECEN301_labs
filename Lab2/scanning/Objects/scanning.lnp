@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\scanner.obj" 
+TO ".\Objects\scanning" 
+PRINT(".\Listings\scanning.m51") RAMSIZE(256) 

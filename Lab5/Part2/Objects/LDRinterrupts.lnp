@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\LDRinterrupt.obj" 
+TO ".\Objects\LDRinterrupts" 
+
+PRINT(".\Listings\LDRinterrupts.map")

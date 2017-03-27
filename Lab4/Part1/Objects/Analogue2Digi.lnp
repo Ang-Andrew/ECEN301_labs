@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\adc.obj",
+".\phys340libkeil.obj" 
+TO ".\Objects\Analogue2Digi" 
+
+PRINT(".\Listings\Analogue2Digi.map")

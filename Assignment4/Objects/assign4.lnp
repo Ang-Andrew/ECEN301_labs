@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\assign4.obj" 
+TO ".\Objects\assign4" 
+
+PRINT(".\Listings\assign4.map")

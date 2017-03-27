@@ -1,0 +1,106 @@
+C51 COMPILER V9.53.0.0   SAMPLEADCIMP                                                      04/24/2015 14:08:24 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE SAMPLEADCIMP
+OBJECT MODULE PLACED IN .\Objects\sampleADCImp.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE sampleADCImp.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\L
+                    -istings\sampleADCImp.lst) TABS(2) OBJECT(.\Objects\sampleADCImp.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF sampleADCImp.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A simple program to set port values and output them                  */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          #include <string.h>
+  12          #include <phys340libkeil.h>
+  13          #include <stdio.h>
+  14          
+  15          const char BlankString[] = "                               ";
+  16          char str[15];
+  17          int value;
+  18          
+  19          
+  20          /***  Function to sample an analog voltage  ********************************/
+  21          
+  22          unsigned char Sample_ADC()
+  23          {
+  24   1        //Using standard
+  25   1        
+  26   1        static unsigned char Sample;
+  27   1        
+  28   1        //~~configure P1.0 in ADC channels~~
+  29   1        //configure for channel to .0
+  30   1        ADCF = 0x01;
+  31   1        
+  32   1        //Enable the ADC
+  33   1        ADCON = 0x20;
+  34   1        
+  35   1        //~~Start a standard conversion~~
+  36   1        //clear the field SCH[2:0]
+  37   1        ADCON &= 0xF8;
+  38   1        
+  39   1        //Select Channel
+  40   1        ADCON |= 0x00;
+  41   1        
+  42   1        //Start conversion in standard mode
+  43   1        ADCON |= 0x08;
+  44   1        
+  45   1        //Wait flag end of conversion
+  46   1        while ((ADCON & 0x10) != 0x10){}
+  47   1          /* Do Nothing */;
+  48   1        
+  49   1        //Clear the end of conversion flag
+  50   1        ADCON &= 0xEF;
+  51   1        
+  52   1        Sample = (ADDH<<2)+(ADDL);                    
+  53   1        return Sample;
+C51 COMPILER V9.53.0.0   SAMPLEADCIMP                                                      04/24/2015 14:08:24 PAGE 2   
+
+  54   1      }
+  55          
+  56          /**  Main Function  ********************************************************/
+  57          
+  58          void main()
+  59          {
+  60   1        initLCD();
+  61   1        while(1)
+  62   1        {
+  63   2          clearLCD();
+  64   2          //value = sample_ADC();
+  65   2          //BlankString = Sample_ADC()
+  66   2          //sprintf(str,"Voltage = %i",BlankSt
+  67   2          value = sample_ADC();
+*** WARNING C206 IN LINE 67 OF sampleADCImp.c: 'sample_ADC': missing function-prototype
+  68   2          sprintf(str,"Voltage = %i",value);
+  69   2          writeLineLCD(str);
+  70   2          delaya(1000);
+  71   2        }
+  72   1      }
+  73          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     99    ----
+   CONSTANT SIZE    =     13    ----
+   XDATA SIZE       =     50    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

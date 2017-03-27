@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\setLCDpos.obj",
+".\phys340libkeil.obj" 
+TO ".\Objects\setLCDPos" 
+
+PRINT(".\Listings\setLCDPos.map")

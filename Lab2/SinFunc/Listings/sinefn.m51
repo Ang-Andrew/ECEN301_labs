@@ -1,0 +1,202 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/30/2015  12:52:04  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRA~2\KEIL\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\sinefn.obj TO .\Objects\sinefn PRINT (.\Listings\sine
+>> fn.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: LARGE WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\sinefn.obj (SINEFN)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FPADD)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FPMUL)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?CASTF)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (SIN)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FPGETOPN)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FPDIV)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FCAST)
+  C:\PROGRA~2\KEIL\C51\LIB\C51FPL.LIB (?C?FPSERIES)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LNEG)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LLDCODE)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LLDXDATA0)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LLDCODE0)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LSTXDATA)
+  C:\PROGRA~2\KEIL\C51\LIB\C51L.LIB (?C?LSTKXDATA)
+
+
+LINK MAP OF MODULE:  .\Objects\sinefn (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     0018H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         _BIT_GROUP_
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     0014H     UNIT         _XDATA_GROUP_
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0421H     UNIT         ?C?LIB_CODE
+            CODE    0C21H     0188H     UNIT         ?PR?SIN?SIN
+            CODE    0DA9H     0077H     UNIT         ?PR?MAIN?SINEFN
+            CODE    0E20H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\sinefn (?C_STARTUP)
+
+
+SEGMENT                           BIT_GROUP          XDATA_GROUP
+  +--> CALLED SEGMENT          START    LENGTH     START    LENGTH
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/30/2015  12:52:04  PAGE 2
+
+
+------------------------------------------------------------------
+?C_C51STARTUP                  -----    -----      -----    -----
+  +--> ?PR?MAIN?SINEFN
+
+?PR?MAIN?SINEFN                -----    -----      0000H    0010H
+  +--> ?PR?SIN?SIN
+
+?PR?SIN?SIN                    0020H.0  0000H.1    0010H    0004H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\sinefn (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0E20H         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0E23H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0E20H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0E20H         LINE#         133
+  C:0E22H         LINE#         134
+  C:0E23H         LINE#         135
+  C:0E24H         LINE#         136
+  C:0E26H         LINE#         185
+  C:0E29H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        SINEFN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  C:0DA9H         PUBLIC        main
+  -------         PROC          MAIN
+  -------         DO            
+  X:0000H         SYMBOL        y
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/30/2015  12:52:04  PAGE 3
+
+
+  X:0004H         SYMBOL        x
+  X:0008H         SYMBOL        step
+  X:000CH         SYMBOL        z
+  -------         ENDDO         
+  C:0DA9H         LINE#         17
+  C:0DA9H         LINE#         18
+  C:0DA9H         LINE#         24
+  C:0DB3H         LINE#         26
+  C:0DB3H         LINE#         27
+  C:0DB3H         LINE#         29
+  C:0DD4H         LINE#         30
+  C:0DFBH         LINE#         31
+  C:0E1EH         LINE#         33
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        SINEFN
+
+  -------         MODULE        ?C?FPADD
+  C:0807H         PUBLIC        ?C?FPADD
+  C:0803H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:08F8H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?CASTF
+  C:09FEH         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        SIN
+  C:0C69H         PUBLIC        _COS
+  C:0C7FH         PUBLIC        _SIN
+  C:0CBBH         PUBLIC        _TAN
+  -------         ENDMOD        SIN
+
+  -------         MODULE        ?C?FPDIV
+  C:0A82H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FCAST
+  C:0B29H         PUBLIC        ?C?FCASTC
+  C:0B24H         PUBLIC        ?C?FCASTI
+  C:0B1FH         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?LNEG
+  C:0BAAH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?LLDCODE
+  C:0BB8H         PUBLIC        ?C?LLDCODE
+  -------         ENDMOD        ?C?LLDCODE
+
+  -------         MODULE        ?C?LLDXDATA0
+  C:0BC8H         PUBLIC        ?C?LLDXDATA0
+  -------         ENDMOD        ?C?LLDXDATA0
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/30/2015  12:52:04  PAGE 4
+
+
+  -------         MODULE        ?C?LLDCODE0
+  C:0BD4H         PUBLIC        ?C?LLDCODE0
+  -------         ENDMOD        ?C?LLDCODE0
+
+  -------         MODULE        ?C?LSTXDATA
+  C:0BE4H         PUBLIC        ?C?LSTXDATA
+  -------         ENDMOD        ?C?LSTXDATA
+
+  -------         MODULE        ?C?LSTKXDATA
+  C:0BF0H         PUBLIC        ?C?LSTKXDATA
+  -------         ENDMOD        ?C?LSTKXDATA
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0086H BYTE ( 6%) *
+******************************************************************************
+
+Program Size: data=9.1 xdata=20 code=1583
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

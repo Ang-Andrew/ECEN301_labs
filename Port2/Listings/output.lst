@@ -1,0 +1,40 @@
+C51 COMPILER V9.53.0.0   OUTPUT                                                            03/19/2015 09:24:38 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE OUTPUT
+OBJECT MODULE PLACED IN .\Objects\output.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE output.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\output.lst) TABS(2) OBJECT(.\Objects\output.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF output.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include <t89c51ac3.h>
+   2          
+   3          unsigned char ReadInput()
+   4          {
+   5   1        static unsigned char Input;
+   6   1        Input = P2;
+   7   1        return Input;
+   8   1      }
+   9          
+  10          void main()
+  11          {
+  12   1        P1 = ReadInput();
+  13   1      
+  14   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     15    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

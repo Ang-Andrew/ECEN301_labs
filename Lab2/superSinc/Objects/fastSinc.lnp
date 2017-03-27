@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\fastSinc.obj" 
+TO ".\Objects\fastSinc" 
+PRINT(".\Listings\fastSinc.m51") RAMSIZE(256) 

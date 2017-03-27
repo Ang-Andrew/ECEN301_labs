@@ -1,0 +1,124 @@
+C51 COMPILER V9.53.0.0   TEMPLOGGER                                                        05/01/2015 12:42:18 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE TEMPLOGGER
+OBJECT MODULE PLACED IN .\Objects\TempLogger.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE TempLogger.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Lis
+                    -tings\TempLogger.lst) TABS(2) OBJECT(.\Objects\TempLogger.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF TempLogger.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A simple program to set port values and output them                  */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          #include <string.h>
+  12          #include <phys340libkeil.h>
+  13          #include <stdio.h>
+  14          
+  15          
+  16          char str[15];
+  17          char test[15];
+  18          int output;
+  19          int counter;
+  20          float average;
+  21          float Vt;
+  22          float Rt;
+  23          float samples[5];
+  24          float summer;
+  25          float temp;
+  26          int i;
+  27          
+  28          /**  Main Function  ********************************************************/
+  29          
+  30          void main()
+  31          {
+  32   1        initLCD();
+  33   1        counter = 0;
+  34   1        
+  35   1        
+  36   1        while(1)
+  37   1        {
+  38   2          clearLCD();
+  39   2          
+  40   2          //calculating Rt
+  41   2          output = sampleADC();
+  42   2          if(output <= 818 || output >= 797){
+  43   3            temp = -0.1863*(float)output + 173.39;
+  44   3          }
+  45   2          //Vt = output*0.0023;
+  46   2          //Rt = (1000/(3-Vt))*Vt;
+  47   2          
+  48   2          //putting into samples
+  49   2          samples[counter] = output; 
+  50   2          
+  51   2          //displaying  output on LCD
+  52   2          //sprintf(str,"Output = %i",output);
+  53   2          //writeLineLCD(str);
+C51 COMPILER V9.53.0.0   TEMPLOGGER                                                        05/01/2015 12:42:18 PAGE 2   
+
+  54   2          sprintf(str,"temp = %f",temp);
+  55   2          writeLineLCD(str);
+  56   2          
+  57   2          //displaying output on LCD
+  58   2          setLCDPos(16);
+  59   2          sprintf(test,"average = %f",average);
+  60   2          writeLineLCD(test);
+  61   2          
+  62   2          counter++;
+  63   2          
+  64   2          //average over 5 samples
+  65   2          if(counter >= 4){
+  66   3            summer = 0;
+  67   3            
+  68   3            //summing
+  69   3            for(i = 0; i < 5; i++)
+  70   3            {
+  71   4              summer = summer + samples[i];
+  72   4            }
+  73   3            
+  74   3            //averaging
+  75   3            average = summer/4.f;
+  76   3            
+  77   3            
+  78   3            
+  79   3            //reset counter
+  80   3            counter = 0;
+  81   3            
+  82   3            //reset LCD position
+  83   3            //setLCDPos(0);
+  84   3            
+  85   3            
+  86   3            
+  87   3          }
+  88   2          delaya(1000000);
+  89   2          
+  90   2        }
+  91   1      }
+  92          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    451    ----
+   CONSTANT SIZE    =     23    ----
+   XDATA SIZE       =     76    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

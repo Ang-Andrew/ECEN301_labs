@@ -1,0 +1,124 @@
+#include <t89c51ac3.h>
+#include <string.h>
+#include <phys340libkeil.h>
+#include <stdio.h>
+
+char outputText [33];
+int rpm;
+int difference=0;
+unsigned int hi,lo,prev,curr,period;
+int overflow; //Flag counter
+int rpm; //average RPM
+//int prevRPM = 0; //previous RPM
+int currRPM = 0; //current RPM
+int samples[5];
+int index = 0;
+int printCounter = 5;
+int summer = 0;
+int fullFlag = 0;
+int i = 0;
+int x = 0;
+
+int averageFinder = 0;
+int averageFlag = 1;
+char averageArray[10];
+
+unsigned int test = 0; 
+
+void MyIntHandler(void) interrupt 6
+{
+	EA=0;
+	EC=0;
+	if(CF ==1)
+			{
+				overflow++;
+				CF=0;	
+			}	
+	if(CCF1 == 1)
+		{	
+//			if(CF ==1)
+//			{
+//				overflow++;
+//				CF=0;	
+//			}
+			//prevRPM = currRPM;
+			hi = (unsigned int)(CCAP1H<<8);
+			lo =  (unsigned int)(CCAP1L);
+			prev = curr;	
+			curr = hi + lo +  ((unsigned int)(65536*overflow)); 
+			difference = curr-prev;
+			//currRPM = 300000/difference;
+			//samples[index] = currRPM;
+			//index++;
+//			if (index == 6) //array of samples is full
+//			{
+//				index = 0;
+//				fullFlag = 1;
+//			}
+		}
+	CCF1 = 0;
+	EA=1;
+	EC=1;
+	overflow=0;
+}
+
+
+void averaging()
+{
+	summer = 0;
+	//getting the total within the array
+	for(i = 0; i < 5; ++i)
+			{
+				summer = summer + samples[i];
+			}
+	//finding the average
+	x = summer/5;
+	rpm = x;
+}
+
+void init()
+{
+	//PCA module 0 as PWM output to motor
+	CCAPM0 = 0x42;
+	CMOD = 0x01;
+	
+	//PCA module 1 as capture for optoswitch
+	EA=1;
+	EC=1;
+	CCAPM1 = 0x11; //Capture mode and enable CCFx interrupt bit
+	CCON = 0x40; //PCA Counter On
+	CF=0;
+}
+
+void main()
+{
+	init();	
+	initLCD();
+	
+		while(1)
+			{
+				
+				test = P2;
+				CCAP0H = test;
+				clearLCD();
+				
+				currRPM = 300000/difference;
+				samples[index] = currRPM;
+				index++;
+				if (index == 6) //array of samples is full
+				{
+					index = 0;
+					fullFlag = 1;
+				}
+				if (fullFlag)
+				{
+					averaging();
+					sprintf(outputText, "RPM: %i",rpm);
+					writeLineLCD(outputText);
+					fullFlag = 0;
+					delaya(1000);
+					
+				}
+				
+			}
+}

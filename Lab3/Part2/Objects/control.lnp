@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\control.obj",
+"..\..\code\ECEN301\phys340libkeil.obj" 
+TO ".\Objects\control" 
+
+PRINT(".\Listings\control.map")

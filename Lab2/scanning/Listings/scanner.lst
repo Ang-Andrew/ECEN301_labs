@@ -1,0 +1,73 @@
+C51 COMPILER V9.53.0.0   SCANNER                                                           03/20/2015 11:21:55 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE SCANNER
+OBJECT MODULE PLACED IN .\Objects\scanner.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE scanner.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\scanner.lst) TABS(2) OBJECT(.\Objects\scanner.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF scanner.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A simple program to read the keypad                                  */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          
+  12          
+  13          
+  14          /**  Main Function  ********************************************************/
+  15          
+  16          void main()
+  17          {
+  18   1        int Key = 0;
+  19   1        P2_0 = TRUE;
+  20   1        P2_1 = TRUE;
+  21   1        P2_2 = TRUE;
+  22   1        P2_3 = TRUE;
+  23   1        
+  24   1        P2_0 = FALSE;
+  25   1        if(!P2_4) Key = 1;
+  26   1        if(!P2_5) Key = 2;
+  27   1        if(!P2_6) Key = 3;
+  28   1        
+  29   1        P2_1 = FALSE;
+  30   1        if(!P2_4) Key = 4;
+  31   1        if(!P2_5) Key = 5;
+  32   1        if(!P2_6) Key = 6;
+  33   1        
+  34   1        P2_2 = FALSE;
+  35   1        if(!P2_4) Key = 7;
+  36   1        if(!P2_5) Key = 8;
+  37   1        if(!P2_6) Key = 9;
+  38   1        
+  39   1        P2_3 = FALSE;
+  40   1        //if(!P2_4) Key = 1;
+  41   1        if(!P2_5) Key = 0;
+  42   1        //if(!P2_6) Key = 3;
+  43   1        
+  44   1      }
+  45          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.53.0.0   SCANNER                                                           03/20/2015 11:21:55 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

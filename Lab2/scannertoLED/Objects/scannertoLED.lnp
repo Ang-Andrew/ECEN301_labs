@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\LEDoutput.obj",
+"..\..\code\ECEN301\phys340libkeil.obj" 
+TO ".\Objects\scannertoLED" 
+PRINT(".\Listings\scannertoLED.m51") RAMSIZE(256) 

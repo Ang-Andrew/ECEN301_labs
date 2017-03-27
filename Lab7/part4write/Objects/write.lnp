@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\wtite.obj" 
+TO ".\Objects\write" 
+
+PRINT(".\Listings\write.map")

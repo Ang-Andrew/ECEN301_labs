@@ -1,0 +1,136 @@
+C51 COMPILER V9.53.0.0   CONTROL                                                           03/27/2015 16:01:13 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE CONTROL
+OBJECT MODULE PLACED IN .\Objects\control.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE control.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listin
+                    -gs\control.lst) TABS(2) OBJECT(.\Objects\control.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF control.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    Program to put info on LCD display                                   */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          #include <phys340libkeil.h>
+  12          #include <string.h>
+  13          #include <stdio.h>
+  14          
+  15          
+  16          
+  17          
+  18          //setting the control lines to bits 0 to 2 of port 4
+  19            Sbit(EN,0xC0,2);//setting EN to bit 2
+  20            Sbit(RW,0xC0,1); //setting RW to bit 1
+  21            Sbit(RS,0xC0,0);//setting RS to bit 0
+  22          char str[15];
+  23          int n;
+  24          
+  25          /**  Main Function  ********************************************************/
+  26          
+  27          void my_init(){
+  28   1        //***INITILIASING LCD***//
+  29   1        
+  30   1        P0 = 0;
+  31   1        //clearing display
+  32   1        RS = 0; 
+  33   1        RW = 0; 
+  34   1        P0 = 0x01; 
+  35   1        EN = TRUE;
+  36   1        delaya(1000);
+  37   1        EN = FALSE;
+  38   1        
+  39   1        //function set
+  40   1        P0 = 0;
+  41   1        RS = 0;
+  42   1        RW = 0;
+  43   1      //  P0_5 = 1; 
+  44   1      //  P0_4 = 1; //8bit interface data 
+  45   1      //  P0_3 = 0; //1-line display
+  46   1      //  P0_2= 0; //5x8 dot character font
+  47   1        P0 = 0x38;
+  48   1        EN = TRUE;
+  49   1        delaya(1000);
+  50   1        EN = FALSE;
+  51   1        
+  52   1        //display on/off control
+  53   1        P0 = 0;
+C51 COMPILER V9.53.0.0   CONTROL                                                           03/27/2015 16:01:13 PAGE 2   
+
+  54   1        RS = 0;
+  55   1        RW = 0;
+  56   1      //  P0_3 = 1; 
+  57   1      //  P0_2 = 0; //display off
+  58   1      //  P0_1 = 0; //cursor off
+  59   1      //  P0_0 = 0; //blinking off
+  60   1        P0 = 0x08;
+  61   1        EN = TRUE;
+  62   1        delaya(1000);
+  63   1        EN = FALSE;
+  64   1        
+  65   1        //Entry mode set
+  66   1        P0 = 0;
+  67   1        RS = 0;
+  68   1        RW = 0;
+  69   1      //  P0_2 = 1; 
+  70   1      //  P0_1 = 1; //increment by 1
+  71   1      //  P0_0 = 0; //no shift
+  72   1        P0 = 0x06;
+  73   1        EN = TRUE;
+  74   1        delaya(1000);
+  75   1        EN = FALSE; 
+  76   1        
+  77   1        P0 = 0x0c;
+  78   1        EN = TRUE;
+  79   1        delaya(1000);
+  80   1        EN = FALSE; 
+  81   1        //**End of initialisation**//
+  82   1        
+  83   1      }
+  84          
+  85          void main()
+  86          {
+  87   1        
+  88   1        
+  89   1        my_init();
+  90   1        //initLCD();
+  91   1        n = 0;
+  92   1        while(1)
+  93   1          {
+  94   2            clearLCD();
+  95   2            sprintf(str,"%d",n);
+  96   2            writeLineLCD(str);
+  97   2            delaya(10000);
+  98   2            n++;
+  99   2          }
+ 100   1        
+ 101   1      }
+ 102          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    182    ----
+   CONSTANT SIZE    =      3    ----
+   XDATA SIZE       =     17    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+C51 COMPILER V9.53.0.0   CONTROL                                                           03/27/2015 16:01:13 PAGE 3   
+
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

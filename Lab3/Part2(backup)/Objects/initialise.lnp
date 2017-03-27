@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\initialise.obj",
+"..\..\code\ECEN301\phys340libkeil.obj" 
+TO ".\Objects\initialise" 
+
+PRINT(".\Listings\initialise.map")

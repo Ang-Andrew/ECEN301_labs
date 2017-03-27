@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\keypad.obj",
+"..\..\code\ECEN301\phys340libkeil.obj" 
+TO ".\Objects\keypad" 
+PRINT(".\Listings\keypad.m51") RAMSIZE(256) 

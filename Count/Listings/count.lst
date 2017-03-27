@@ -1,0 +1,88 @@
+C51 COMPILER V9.53.0.0   COUNT                                                             03/13/2015 12:05:48 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE COUNT
+OBJECT MODULE PLACED IN .\Objects\count.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE count.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings
+                    -\count.lst) TABS(2) OBJECT(.\Objects\count.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF count.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A simple program to set port values and output them                  */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files and global variables  **********************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          
+  12          
+  13          
+  14          
+  15          
+  16          
+  17          /***  Pause program  *******************************************************/
+  18          
+  19          void Delay()
+  20          {
+  21   1        int c = 1, d = 1;
+  22   1       
+  23   1         for ( c = 1 ; c <= 100 ; c++ )
+  24   1             for ( d = 1 ; d <= 1000 ; d++ )
+  25   1             {}
+  26   1      }
+  27          
+  28          
+  29          /**  Main Function  ********************************************************/
+  30          
+  31          void main()
+  32          {
+  33   1        P1 = 0;
+  34   1        while (TRUE)
+  35   1        {
+  36   2          P1_0 = TRUE;
+  37   2          P1_1 = TRUE;
+  38   2          P1_2 = TRUE;
+  39   2          P1_3 = TRUE;
+  40   2          P1_4 = FALSE;
+  41   2          P1_5 = FALSE;
+  42   2          P1_6 = FALSE;
+  43   2          P1_7 = FALSE;
+  44   2          Delay();
+  45   2          P1_0 = FALSE;
+  46   2          P1_1 = FALSE;
+  47   2          P1_2 = FALSE;
+  48   2          P1_3 = FALSE;
+  49   2          P1_4 = TRUE;
+  50   2          P1_5 = TRUE;
+  51   2          P1_6 = TRUE;
+  52   2          P1_7 = TRUE;
+  53   2          Delay();
+C51 COMPILER V9.53.0.0   COUNT                                                             03/13/2015 12:05:48 PAGE 2   
+
+  54   2        }
+  55   1      }
+  56          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     74    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

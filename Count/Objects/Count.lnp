@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\count.obj" 
+TO ".\Objects\Count" 
+
+PRINT(".\Listings\Count.map")

@@ -1,0 +1,139 @@
+C51 COMPILER V9.53.0.0   PART5                                                             05/29/2015 13:07:44 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE PART5
+OBJECT MODULE PLACED IN .\Objects\part5.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE part5.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings
+                    -\part5.lst) TABS(2) OBJECT(.\Objects\part5.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF part5.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include <t89c51ac3.h>
+   2          #include <string.h>
+   3          #include <phys340libkeil.h>
+   4          #include <stdio.h>
+   5          
+   6          
+   7          unsigned int currValue = 0;
+   8          unsigned int prevValue = 0;
+   9          int overflow = 0;
+  10          unsigned int hi,lo,prev,curr,period;
+  11          int count; 
+  12          int rpm;
+  13          char str[15];
+  14          
+  15          //initialise interrupt method
+  16          void iniInterrupts()
+  17          {
+  18   1        //Enabling all interrupt bit pg 115
+  19   1        //EA = 1;
+  20   1        //enabling PCA interrupt pg 115
+  21   1        //EC = 1;
+  22   1        
+  23   1        //specifying the interrupt is to be edge triggered (falling edge active) pg 70
+  24   1        //IT0 = 1;
+  25   1        
+  26   1        //intialising timer 0 as an 8 bit timer with auto reload pg 71
+  27   1        //TMOD |= 0x02; //pg 71
+  28   1        //turning on timer 0 
+  29   1        //TR0 = 1; //pg 70
+  30   1        
+  31   1        //enabling timer0 overflow interrupt pg115
+  32   1        //ET0 = 1;
+  33   1        
+  34   1        //enabling external interrupt EX0 pg115
+  35   1        //EX0 = 1;
+  36   1        
+  37   1        //setting up PCA module 0 in capture mode
+  38   1        //CCAPM0 = 0x11; //pg103
+  39   1        //enabling counter overflow interrupt and using internal clock
+  40   1        //CMOD = 0x00;  //pg100
+  41   1        
+  42   1        //turning PCA timer on
+  43   1        //CCON = 0x40;
+  44   1        //CR = 1; //pg101
+  45   1        //CF = 0;
+  46   1        // timer overflow speed
+  47   1        //TH0 = 0;
+  48   1        EA=1;
+  49   1        EC=1;
+  50   1      
+  51   1        CCAPM0 = 0x11; //Capture mode and enable CCFx interrupt bit
+  52   1        //CMOD = 0x00;
+  53   1        CCON = 0x40; //PCA Counter On
+C51 COMPILER V9.53.0.0   PART5                                                             05/29/2015 13:07:44 PAGE 2   
+
+  54   1        CF=0;
+  55   1      }
+  56          
+  57          //interrupt method for timer
+  58          void timerInterrupt(void) interrupt 6 //PCA
+  59          {
+  60   1      
+  61   1      EA=0;
+  62   1      EC=0;
+  63   1      
+  64   1        
+  65   1      if(CCF0 == 1){  
+  66   2          if(CF ==1){
+  67   3          CF=0;
+  68   3            overflow++;
+  69   3          
+  70   3          }
+  71   2          
+  72   2          hi = CCAP0H;//<<8;
+  73   2          lo = CCAP0L;
+  74   2          prev = curr;  
+  75   2          
+  76   2          curr = hi + lo +  ((unsigned int)(65536*overflow)); 
+  77   2          
+  78   2          
+  79   2          
+  80   2          count = curr-prev;
+  81   2          rpm = 300000/count;
+  82   2          
+  83   2          
+  84   2      }
+  85   1      CCF0 = 0;
+  86   1      EA=1;
+  87   1      EC=1;
+  88   1      overflow=0;
+  89   1      }
+  90          
+  91          void main()
+  92          {
+  93   1        initLCD();
+  94   1        iniInterrupts();
+  95   1        while(1)
+  96   1        {
+  97   2      
+  98   2          clearLCD(); 
+  99   2          sprintf(str,"RPM = %i",rpm);
+ 100   2          writeLineLCD(str);
+ 101   2          delaya(1000);
+ 102   2          
+ 103   2        }
+ 104   1      }                                                         
+ 105            
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    315    ----
+   CONSTANT SIZE    =      9    ----
+   XDATA SIZE       =     35    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.53.0.0   PART5                                                             05/29/2015 13:07:44 PAGE 3   
+
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

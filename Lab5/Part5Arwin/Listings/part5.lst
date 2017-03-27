@@ -1,0 +1,101 @@
+C51 COMPILER V9.53.0.0   PART5                                                             05/29/2015 20:57:41 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE PART5
+OBJECT MODULE PLACED IN .\Objects\part5.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE part5.c LARGE OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings
+                    -\part5.lst) TABS(2) OBJECT(.\Objects\part5.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF part5.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***********************************************************************************/ 
+   2          /*ECEN301 Lab 5 and 6; Part 4: Capture Interrupts
+   3          /* Arwin Sinnathambi
+   4          /***********************************************************************************/
+   5          
+   6          
+   7          #include <t89c51ac3.h>
+   8          #include <string.h>
+   9          #include <phys340libkeil.h>
+  10          #include <stdio.h>
+  11          
+  12          char outputText [33];
+  13          int rpm;
+  14          int count=0;
+  15          unsigned int hi,lo,prev,curr,period;
+  16          int f; //Flag counter
+  17          int rpm;
+  18          void MyIntHandler(void) interrupt 6
+  19          {
+  20   1        EA=0;
+  21   1        EC=0;
+  22   1        
+  23   1      if(CCF0 == 1){  
+  24   2          if(CF ==1){
+  25   3          CF=0;
+  26   3            f++;
+  27   3          
+  28   3          }
+  29   2          
+  30   2          hi = (unsigned int)(CCAP0H<<8);
+  31   2          lo =  (unsigned int)(CCAP0L);
+  32   2          prev = curr;  
+  33   2          
+  34   2          curr = hi + lo +  ((unsigned int)(65536*f)); 
+  35   2          
+  36   2          count = curr-prev;
+  37   2          rpm = 300000/count;
+  38   2          
+  39   2          
+  40   2      }
+  41   1      CCF0 = 0;
+  42   1      EA=1;
+  43   1      EC=1;
+  44   1      f=0;
+  45   1      }
+  46          
+  47          
+  48          void main(){
+  49   1        EA=1;
+  50   1        EC=1;
+  51   1      
+  52   1        CCAPM0 = 0x11; //Capture mode and enable CCFx interrupt bit
+  53   1        //CMOD = 0x00;
+C51 COMPILER V9.53.0.0   PART5                                                             05/29/2015 20:57:41 PAGE 2   
+
+  54   1        CCON = 0x40; //PCA Counter On
+  55   1        CF=0;
+  56   1        
+  57   1        
+  58   1        initLCD();
+  59   1        
+  60   1        
+  61   1        while(1){
+  62   2          clearLCD();
+  63   2          sprintf(outputText, "RPM: %i",rpm);
+  64   2          writeLineLCD(outputText);
+  65   2          delaya(1000);
+  66   2          }
+  67   1      
+  68   1      
+  69   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    308    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =     49    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

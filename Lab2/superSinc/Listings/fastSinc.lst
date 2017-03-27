@@ -1,0 +1,74 @@
+C51 COMPILER V9.53.0.0   FASTSINC                                                          03/25/2015 17:25:07 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE FASTSINC
+OBJECT MODULE PLACED IN .\Objects\fastSinc.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE fastSinc.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
+                    -(.\Listings\fastSinc.lst) TABS(2) OBJECT(.\Objects\fastSinc.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF fastSinc.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    A program to generate a sine wave using the DAC module               */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          #include <math.h>
+  12          #include <stdio.h>
+  13          #define PI 3.141592
+  14          
+  15          /**  Main Function  ********************************************************/
+  16          
+  17          void main()
+  18          {
+  19   1        unsigned char values[1000];
+  20   1        unsigned char y;
+  21   1        float x;
+  22   1        float step;
+  23   1        int n = 0;
+  24   1        step = 0.01;
+  25   1        
+  26   1        //making sin function lookup table
+  27   1        for (n =0;n < 1000; n++){
+  28   2          values[n] = (unsigned char)(sin(10*PI*x)*127.5+127.5);
+  29   2          x+=step;
+  30   2        }
+  31   1        
+  32   1      
+  33   1          
+  34   1        
+  35   1        
+  36   1        while (TRUE)
+  37   1        {
+  38   2         
+  39   2          n = 0;
+  40   2          for(n = 0; n <1000; n++){
+  41   3            P1 = values[n];
+  42   3          }
+  43   2            
+  44   2        }
+  45   1      }
+*** WARNING C280 IN LINE 20 OF fastSinc.c: 'y': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    222    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    1011
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.53.0.0   FASTSINC                                                          03/25/2015 17:25:07 PAGE 2   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

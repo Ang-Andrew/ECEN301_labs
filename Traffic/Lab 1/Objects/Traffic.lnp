@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\traffic.obj" 
+TO ".\Objects\Traffic" 
+
+PRINT(".\Listings\Traffic.map")

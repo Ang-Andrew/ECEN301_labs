@@ -1,0 +1,123 @@
+C51 COMPILER V9.53.0.0   LCDPOS                                                            04/20/2015 11:17:37 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE LCDPOS
+OBJECT MODULE PLACED IN .\Objects\lcdPos.obj
+COMPILER INVOKED BY: C:\PROGRA~2\Keil\C51\BIN\C51.EXE lcdPos.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\lcdPos.lst) TABS(2) OBJECT(.\Objects\lcdPos.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF lcdPos.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          /***************************************************************************/
+   2          /*                                                                         */
+   3          /*    Program to put info on LCD display                                   */
+   4          /*                                                                         */
+   5          /***************************************************************************/
+   6          
+   7          
+   8          /***  Include Files  *******************************************************/
+   9          
+  10          #include <t89c51ac3.h>
+  11          #include <phys340libkeil.h>
+  12          #include <string.h>
+  13          #include <stdio.h>
+  14          
+  15          //setting the control lines to bits 0 to 2 of port 4
+  16            Sbit(EN,0xC0,2);//setting EN to bit 2
+  17            Sbit(RW,0xC0,1); //setting RW to bit 1
+  18            Sbit(RS,0xC0,0);//setting RS to bit 0
+  19            char str = 'a';
+  20            string test;
+*** ERROR C129 IN LINE 20 OF lcdPos.c: missing ';' before 'test'
+  21            int n;
+  22            unsigned char cursor;
+  23          
+  24          /**  Main Function  ********************************************************/
+  25          
+  26          void my_init(){
+  27            //***INITILIASING LCD***//
+  28            
+  29            P0 = 0;
+  30            //clearing display
+  31            RS = 0; 
+  32            RW = 0; 
+  33            P0 = 1; 
+  34            EN = TRUE;
+  35            delaya(1000);
+  36            EN = FALSE;
+  37            
+  38            //function set
+  39            P0 = 0;
+  40            RS = 0;
+  41            RW = 0;
+  42            P0 = 0x30;
+  43            EN = TRUE;
+  44            delaya(1000);
+  45            EN = FALSE;
+  46            
+  47            //display on/off control
+  48            P0 = 0;
+  49            RS = 0;
+  50            RW = 0;
+  51            P0 = 0x08;
+  52            EN = TRUE;
+C51 COMPILER V9.53.0.0   LCDPOS                                                            04/20/2015 11:17:37 PAGE 2   
+
+  53            delaya(1000);
+  54            EN = FALSE;
+  55            
+  56            //Entry mode set
+  57            P0 = 0;
+  58            RS = 0;
+  59            RW = 0;
+  60            P0 = 0x03;
+  61            EN = TRUE;
+  62            delaya(1000);
+  63            EN = FALSE; 
+  64            
+  65            //**End of initialisation**//
+  66            
+  67          }
+  68          
+  69          void setLCDPos(unsigned char cur){
+  70            //if cursor is less than the first row,
+  71            if(cur < 0x0F){ 
+  72              P0 = cur;
+  73              P0_7 = 1;
+  74              
+  75            } 
+  76            
+  77          }
+  78          
+  79          void writeCharLCD(){
+  80            RS = 1;
+  81            if(cur < 0x0F){ 
+  82              P0_7 = 1;
+  83              P0_5 = cur;
+  84              P0_4 = cur;
+  85              P0_3 = cur;
+  86              P0_2 = cur;
+  87              P0_1 = cur;
+  88              P0_0 = cur;
+  89            } 
+  90            
+  91          }
+  92          
+  93          void main()
+  94          {
+  95            my_init();
+  96            cursor = 0x00;
+  97            while(1){
+  98              setLCDPos(cursor);
+  99              writeCharLCD()
+ 100            
+ 101            }
+ 102            //posSetter(0x80); //bin(1000000) = 2^7 = 0x80 for first cell
+ 103            //writeCharLCD(a);
+ 104            
+ 105          }
+ 106          
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  1 ERROR(S)

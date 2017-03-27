@@ -1,0 +1,1 @@
+"setLCDpos.c" LARGE OMF2 OPTIMIZE (8,SPEED) BROWSE DEBUG PRINT(.\Listings\setLCDpos.lst) TABS (2) OBJECT(.\Objects\setLCDpos.obj)

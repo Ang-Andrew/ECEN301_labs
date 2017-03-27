@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\phys340libkeil.obj",
+".\Objects\read.obj" 
+TO ".\Objects\read" 
+
+PRINT(".\Listings\read.map")
